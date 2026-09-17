@@ -9,7 +9,7 @@ jobs:
       matrix:
         compiler: [gcc, clang]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Build with strict warnings
         run: make CC=${{ matrix.compiler }} CFLAGS='-std=c11 -Wall -Wextra -Wpedantic -Werror -O2'
       - name: Run regression tests
