@@ -1,0 +1,16 @@
+name: C build and regression tests
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        compiler: [gcc, clang]
+    steps:
+      - uses: actions/checkout@v4
+      - name: Build with strict warnings
+        run: make CC=${{ matrix.compiler }} CFLAGS='-std=c11 -Wall -Wextra -Wpedantic -Werror -O2'
+      - name: Run regression tests
+        run: make test
